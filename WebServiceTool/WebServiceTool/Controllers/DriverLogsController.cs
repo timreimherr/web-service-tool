@@ -15,6 +15,9 @@ namespace WebServiceTool.Controllers
             return View();
         }
 
+
+
+
         private async Task<T> GetWSObject<T>(string uriActionString)
         {
             T returnValue = default(T);

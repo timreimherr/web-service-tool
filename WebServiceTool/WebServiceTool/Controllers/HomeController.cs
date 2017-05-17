@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebServiceTool.ViewModels;
+using WebServiceTool.Services;
+
 
 namespace WebServiceTool.Controllers
 {
@@ -10,7 +13,12 @@ namespace WebServiceTool.Controllers
     {
         public IActionResult Index()
         {
+            SelectWebServiceVM model = APIServices.GetSelectWebServiceVM();
+            return View();
+        }
 
+        public IActionResult OriginalIndex()
+        {
             return View();
         }
 
