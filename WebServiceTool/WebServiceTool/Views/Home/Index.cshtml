@@ -3,58 +3,65 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>Omnitracs Web Services</h2>
-
+<br>
 <div class="row">
     @* In order for horizotnal form to work need to remove div around it *@
     @using (Html.BeginForm("About", "Home", FormMethod.Post, new { id = "webServiceForm", @class = "form-horizontal" }))
     {
-        <div class="col-md-4">
-
+        <div class="col-sm-12">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
             <div class="form-group">
-                @Html.LabelFor(m => m.Credentials.CompanyID, new { style = "font-size:24px" })
-                @Html.TextBoxFor(m => m.Credentials.CompanyID, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Credentials.CompanyID, new { @class = "col-sm-2 control-label" })
+                @Html.TextBoxFor(m => m.Credentials.CompanyID, new { @class = "col-sm-2 form-control" })
                 @Html.ValidationMessageFor(m => m.Credentials.CompanyID)
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Credentials.Username, new { style = "font-size:24px" })
-                @Html.TextBoxFor(m => m.Credentials.Username, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Credentials.Username, new { @class = "col-sm-2 control-label" })
+                @Html.TextBoxFor(m => m.Credentials.Username, new { @class = "col-sm-2 form-control" })
                 @Html.ValidationMessageFor(m => m.Credentials.Username)
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Credentials.Password, new { style = "font-size:24px" })
-                @Html.TextBoxFor(m => m.Credentials.Password, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Credentials.Password, new { @class = "col-sm-2 control-label" })
+                @Html.TextBoxFor(m => m.Credentials.Password, new { @class = "col-sm-2 form-control" })
                 @Html.ValidationMessageFor(m => m.Credentials.Password)
             </div>
-            <ul>
-                <li>Sample pages using ASP.NET Core MVC</li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
-                <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-            </ul>
+            <div class="form-group">
+                @Html.LabelFor(m => m.AvailableWebServices, new { @class = "col-sm-2 control-label" })
+                @Html.DropDownListFor(m => m.SelectedWebService, Model.AvailableWebServices, "--Select Web Service--", new { @class = "col-sm-2 form-control" })
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>How to</h2>
-            <ul>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-            </ul>
-        </div>
-        <div class="col-md-4">
-            <h2>Overview</h2>
-            <ul>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-            </ul>
-        </div>
+        <div class="col-sm-12" id="RequestFormArea"></div>
+
     }
 </div>
 
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#SelectedWebService").on('change', function () {
+                var selectedURL = this.value;
+                $.get("/" + selectedURL, function (htmlResponse) {
+                    $("#RequestFormArea").append(htmlResponse);
+
+                });
+                //alert(window.location.protocol + "//" + window.location.host + "/" + this.value);
+                //$.ajax({
+                //    type: "POST",
+                //    url: window.location.protocol + "//" + window.location.host + "/" + selectedURL,
+                //    success: function (htmlResponse) {
+                //        $("#RequestFormArea").append(htmlResponse);
+                //    },
+                //    failure: function (htmlResponse) {
+                //        alert("Something went wrong: " + htmlResponse.failure)
+                //    },
+                //    error: function (htmlResponse) {
+                //        alert("There was an error: " + htmlResponse.error)
+                //    }
+                //});
+            });
+        });
+
+    </script>
+}

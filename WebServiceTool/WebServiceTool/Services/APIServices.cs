@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,14 +21,22 @@ namespace WebServiceTool.Services
             return newVM;
         }
 
-        public static List<WebService> GetAvailableWebServices()
+        public static IEnumerable<SelectListItem> GetAvailableWebServices()
         {
             List<WebService> availableWS = new List<WebService>
             {
-                new WebService() { Name = "Driver Log", ControllerAction = "DriverLog/Index"}
+                new WebService() { Name = "Driver Log", ControllerAction = "DriverLogs/RequestForm"},
+                new WebService() { Name = "Driver Log Details", ControllerAction = "DriverLogs/DetailsForm"}
             };
 
-            return availableWS;
+            IEnumerable<SelectListItem> returnList = availableWS.Select(x => 
+                                                                new SelectListItem()
+                                                                {
+                                                                    Text = x.Name,
+                                                                    Value = x.ControllerAction
+                                                                }).ToList();
+
+            return returnList;
         }
     }
 }

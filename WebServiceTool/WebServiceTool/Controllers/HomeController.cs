@@ -14,7 +14,7 @@ namespace WebServiceTool.Controllers
         public IActionResult Index()
         {
             SelectWebServiceVM model = APIServices.GetSelectWebServiceVM();
-            return View();
+            return View(model);
         }
 
         public IActionResult OriginalIndex()

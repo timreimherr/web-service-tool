@@ -5,14 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using Newtonsoft.Json;
+using WebServiceTool.Models2;
 
 namespace WebServiceTool.Controllers
 {
     public class DriverLogsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult RequestForm()
         {
-            return View();
+            var model = new DriverLogRequest();
+            return View(model);
         }
 
 
